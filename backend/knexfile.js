@@ -8,7 +8,7 @@ module.exports = {
       host : '127.0.0.1',
       database: 'aulareact',
       user:     'postgres',
-      password: 'postgres'
+      password: 'admin'
     },
     migrations: {
       directory : './src/database/migrations'
@@ -22,7 +22,7 @@ module.exports = {
       host : '127.0.0.1',
       database: 'projetoreact',
       user:     'postgres',
-      password: 'postgres'
+      password: 'admin'
     },
     pool: {
       min: 2,
@@ -39,7 +39,7 @@ module.exports = {
       host : '127.0.0.1',
       database: 'projetoreact',
       user:     'postgres',
-      password: 'postgres'
+      password: 'admin'
     },
     pool: {
       min: 2,
