@@ -5,6 +5,7 @@ import Footer from '../../components/Footer';
 import StarIcon from '../../utils/starIcons';
 import PropertyIcon from '../../utils/propertyIcons';
 import api from '../../services/api';
+import {Redirect} from 'react-router-dom'
 
 function Imovel({match}) {
 
@@ -18,6 +19,7 @@ function Imovel({match}) {
   const [size, setSize] = useState();
   const [balcony, setBalcony] = useState();
   const [grill, setGrill] = useState();
+  const [redirect, setRedirect] = useState(false);
 
   async function loadImovelDetails(){
     await api.get(`/imovel/${match.params.id}`).then(response =>{
@@ -38,16 +40,35 @@ function Imovel({match}) {
     loadImovelDetails();
   },[]);
 
-  async function save(){
-    await api.post('/imovel',{
-      star, title, address, property, bathroom, suite, size, balcony, grill
-    }).then(()=>
-      alert('Imóvel cadastrado')
-    )
+
+  async function Save(){
+    if(match.params.id){
+      await api.put(`/imovel/${match.params.id}`,{
+        star, title, address, property, bathroom, suite, size, balcony, grill
+      }).then(()=>
+        setRedirect(true)
+      )
+    }else{
+      await api.post('/imovel',{
+        star, title, address, property, bathroom, suite, size, balcony, grill
+      }).then(()=>
+        alert('Imóvel cadastrado')
+      )
+    }
+  }
+
+  async function Delete(){
+    const res = window.confirm('Deletar imóvel?')
+    if(res === true){
+      await api.delete(`/imovel/${match.params.id}`).then(()=>
+        setRedirect(true)
+      )
+    }
   }
 
   return (
     <S.Container>
+      {redirect && <Redirect to="" />}
       <Header/>
         <S.Form>
           <S.StarIcons>
@@ -96,8 +117,11 @@ function Imovel({match}) {
           </S.Options>
           
           <S.Save>
-            <button type="button" onClick={save}>Salvar</button>
+            <button type="button" onClick={Save}>Salvar</button>
           </S.Save>
+          { match.params.id && <S.Delete>
+            <button type="button" onClick={Delete}>Deletar Usuário</button>
+          </S.Delete> }
         </S.Form>
       <Footer/>
     </S.Container>

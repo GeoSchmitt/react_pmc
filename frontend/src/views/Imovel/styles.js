@@ -116,3 +116,22 @@ export const Save = styled.div`
     }
     
 `
+export const Delete = styled.div`
+    width: 100%;
+    margin-top: 20px;
+    button{
+        width: 100%;
+        background: #3498db;
+        border: none;
+        font-size: 24px;
+        color: #FFF;
+        font-weight: bold;
+        padding: 20px;
+        &:hover{
+            opacity: 0.7;
+        }
+        border-radius: 20px;
+        cursor: pointer;
+    }
+    
+`

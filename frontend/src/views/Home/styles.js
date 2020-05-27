@@ -25,6 +25,7 @@ export const List = styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    margin-bottom: 70px;
     a{
         text-decoration: none;
         color: #000;

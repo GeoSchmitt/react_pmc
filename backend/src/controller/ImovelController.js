@@ -11,6 +11,25 @@ class ImovelController {
         });
     }
 
+    async update(req, res){
+        await ImovelModel.findByIdAndUpdate({'_id':req.params.id}, req.body, {new:true}).then(response => {
+            return res.status(200).json(response);
+        }).catch(err =>{
+            return res.status(500).json(err);
+        });
+    }
+
+    async delete(req, res){
+        await ImovelModel.deleteOne({'_id': req.params.id}).then(response =>{
+            if(response)
+                return res.status(200).json(response);
+            else
+                return res.status(404).json({error: 'Imóvel não encontrado'});
+        }).catch(err =>{
+            return res.status(500).json(err);
+        });
+    }
+
     async casa(req, res){
         await ImovelModel.find({'property':1}).then(response =>{
             if(response)
